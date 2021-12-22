@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Customers Profile</title>
+</head>
+<body>
+
+<div align="Center">
+ <h1>
+ Customer List
+ </h1>
+ <table>
+ <thead>
+ <tr>
+ <th> Customer id</th>
+ <th> Customer Email</th>
+ <th> Customer Age</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr th:each="customer: ${"listCustomers">
+ <td th:text="${customer.id}"></td>
+ <td th:text="${customer.email}"></td>
+ <td th:text="${customer.age}"></td>
+ 
+ </tr>
+ </tbody>
+ </table>
+</div>
+</body>
+</html>
