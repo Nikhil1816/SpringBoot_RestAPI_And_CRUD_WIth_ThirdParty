@@ -26,7 +26,7 @@ public class customerController {
 	@Autowired
 	public customerService ser;
     
-	@PostMapping("/addCustomer")
+	@PostMapping("/customers")
 	public ResponseEntity<customerWrapper> saveCustomer(@RequestBody customerWrapper customerwrapper){
 	    customerwrapper = ser.saveCustomer(customerwrapper);  
 		return ResponseEntity.ok(customerwrapper);
@@ -37,17 +37,17 @@ public class customerController {
 		return ResponseEntity.ok(ser.getAll());
 	}
    
-	@GetMapping("/customer/{id}")
+	@GetMapping("/customers/{id}")
 	public ResponseEntity<customerWrapper> getCustomerById(@PathVariable int id) throws RecordNotFoundException{
 		customerWrapper customerwrapper=ser.getCustomerById(id);
 		return ResponseEntity.ok(customerwrapper);
 	}
-	@PutMapping("/updateCustomer")
+	@PutMapping("/customers/{id}")
 	public ResponseEntity<customerWrapper> updateCustomer(@RequestBody customerWrapper customerwrapper) throws RecordNotFoundException{
 		 customerwrapper=ser.updateCustomerDetails(customerwrapper);
 		return ResponseEntity.ok(customerwrapper);
 	}
-	@DeleteMapping("/deleteCustomer/{id}")
+	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<customerWrapper> deleteCustomerById(@PathVariable int id) throws RecordNotFoundException{
 		ser.deleteById(id);
 		return ResponseEntity.noContent().build();
