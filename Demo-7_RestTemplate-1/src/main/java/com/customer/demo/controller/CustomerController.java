@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.customer.demo.model.Customer;
 import com.customer.demo.service.CustomerService;
 
@@ -36,8 +35,12 @@ public class CustomerController {
 	
 	@GetMapping("/customers/{id}")
 	 public ResponseEntity<?> getData1(@PathVariable int id) {
-		    
+		   Customer customer = service.getData1(id);
+		   if(customer==null) {
+			   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		   }else {
 		   return new ResponseEntity<>(service.getData1(id),HttpStatus.OK);
+		   }
 	   }
    @PostMapping("/customers")
    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
@@ -46,13 +49,24 @@ public class CustomerController {
    }
    @PutMapping("/customers/{id}")
    public ResponseEntity<?> updateCustomer(@PathVariable int id, @RequestBody Customer customer){
+	   try {
 	   service.updateCustomer(customer,id);
 	   return new ResponseEntity<>("Customer is updated successfully",HttpStatus.OK);
-   }
+	   }
+	   catch(Exception e) {
+		   e.printStackTrace();
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	   }
+	   }
    @DeleteMapping("/customers/{id}")
    public ResponseEntity<?> deleteCustomer(@PathVariable int id){
+	  try {
 	   service.deleteCustomer(id);
 	   return new ResponseEntity<>("Customer is deleted successfully",HttpStatus.OK);
-   }
+	  }catch(Exception e) {
+		  e.printStackTrace();
+		  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	  }
+	   }
 	
 }

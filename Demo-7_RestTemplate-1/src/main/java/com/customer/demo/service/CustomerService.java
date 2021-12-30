@@ -57,6 +57,6 @@ public class CustomerService {
 		ResponseEntity<Customer> responseEntity=restTemplate.exchange("http://localHost:8080/customers/"+id,  HttpMethod.DELETE, entity, Customer.class);
 		return responseEntity.getBody();
 	}
-
+	
 	
 }
